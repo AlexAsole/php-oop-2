@@ -1,5 +1,9 @@
 <?php 
 
+$nome = $_POST['nome'];
+$cognome = $_POST['cognome'];
+$nickname = $_POST['nickname'];
+
 class Prodotto 
 {
     protected $nome;
@@ -50,16 +54,29 @@ class Utente
     protected $nickname;
     protected $carrello = [];
 
-    public function __construct($nome, $cognome, $nickname)
+    public function __construct()
     {
-        $this->nome = $nome;
-        $this->cognome = $cognome;
-        $this->nickname = $nickname;
+
     }
 
     public function addProdotto(Prodotto $prodotto) 
     {
         $this->carrello[] = $prodotto;
+    }
+
+    public function addNome(string $nome) 
+    {
+        $this->nome = $nome;
+    }
+
+    public function addCognome(string $cognome) 
+    {
+        $this->cognome = $cognome;
+    }
+
+    public function addNickname(string $nickname) 
+    {
+        $this->nickname = $nickname;
     }
 
     public function getNome()
@@ -78,8 +95,33 @@ class Utente
     }
 }
 
-$alex = new Utente('Alex Giorgio', 'Asole', 'AAG');
+$cliente = new Utente();
 
 $goodOmens = new Libro('Good Omens', 19.99, 200, 'Neil Gaiman', 'Mondadori', 320, 2);
 $bravia = new Elettronica('Bravia', 499.99, 100, 'Televisore', 'Sony', 'XCM900');
 
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fake Shop</title>
+</head>
+<body>
+    <h1>Fake Shop</h1>
+    <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+        <input type="text" name="nome">
+        <input type="text" name="cognome">
+        <input type="text" name="nickname">
+        <input type="submit">
+    </form>
+    <?php 
+        $cliente->addNome($nome);
+        $cliente->addCognome($cognome);
+        $cliente->addNickname($nickname);
+    ?>
+
+    <?php echo $cliente->getNome(); ?>
+</body>
+</html>
